@@ -30,15 +30,20 @@ page and an email. Both side effects are done by calling MCP tools directly
 
 1. Read `../collect-updates/sources.json` for the vendor list (filter by
    `vendor`/`category` if the user asked for a subset).
-2. For each source, call `WebFetch` the same way `collect-updates` does:
-   "List each release/announcement on this page with its date (if shown)
-   and a one-sentence summary of what changed." Skip and note any source
-   that fails or is blocked — don't abort the whole run over one vendor.
+2. For each source, call `WebFetch` the same way `collect-updates` does —
+   its own `prompt` field if it has one, otherwise the default
+   announcement-summary prompt. Skip and note any source that fails or is
+   blocked — don't abort the whole run over one vendor.
 3. Compose the digest content once, from the fetched summaries:
-   - A short markdown/blocks body grouped by vendor, for the Notion page.
+   - A short markdown/blocks body for the Notion page, with sections:
+     vendor release notes (OpenAI/Anthropic/Google/Meta/Spring), an "AI
+     model rankings" section from `lmarena-leaderboard`, a "Java EOL"
+     section from `java-eol`, and a security section from GitHub
+     Advisories.
    - A shorter plain-text/HTML version for the email: headline items plus
-     "what needs attention" (e.g. security advisories), and a link back to
-     the Notion page once it's created.
+     "what needs attention" (e.g. security advisories, any Java version
+     that's newly past EOL), and a link back to the Notion page once it's
+     created.
 4. Create the Notion page with the `notion` MCP tools (create/append a page
    under the parent the user specified), then grab the resulting page URL.
 5. Send the email through the connected mail connector's send tool (Outlook

@@ -3,6 +3,20 @@
   {"id": "anthropic-release", "vendor": "ANTHROPIC", "category": "AI", "url": "https://www.anthropic.com/news"},
   {"id": "google-ai-release", "vendor": "GOOGLE", "category": "AI", "url": "https://blog.google/technology/ai/"},
   {"id": "meta-ai-release", "vendor": "META", "category": "AI", "url": "https://ai.meta.com/blog/"},
+  {
+    "id": "lmarena-leaderboard",
+    "vendor": "LMARENA",
+    "category": "AI",
+    "url": "https://datasets-server.huggingface.co/rows?dataset=lmarena-ai%2Fleaderboard-dataset&config=text&split=latest&offset=0&length=15",
+    "prompt": "This is JSON row data from the LMArena (Chatbot Arena) text leaderboard's official Hugging Face dataset (lmarena-ai/leaderboard-dataset, config 'text', split 'latest'), already filtered to the 'overall' category and sorted by rank ascending. List each row's rank, model_name, organization and rating (round rating to the nearest integer)."
+  },
   {"id": "spring-release", "vendor": "SPRING", "category": "JAVA", "url": "https://spring.io/blog"},
+  {
+    "id": "java-eol",
+    "vendor": "JAVA_EOL",
+    "category": "JAVA",
+    "url": "https://endoflife.date/oracle-jdk",
+    "prompt": "List each Oracle JDK version with its release date and end-of-life/end-of-support date(s), and clearly call out which versions are already past end-of-life as of today, and which are within 6 months of it."
+  },
   {"id": "github-security-advisories", "vendor": "GITHUB", "category": "SECURITY", "url": "https://github.com/advisories"}
 ]

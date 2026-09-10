@@ -1,0 +1,71 @@
+openapi: 3.1.0
+info:
+  title: Noticement Collect Plugin
+  description: >
+    Crawls registered AI/Java/Security vendor sources (OpenAI, Anthropic, Google, Meta, Spring,
+    GitHub Security Advisories) and returns fresh, normalized text. This plugin does not analyze
+    or summarize the content itself - the calling model (ChatGPT) does that after receiving the
+    response.
+  version: "1.0.0"
+servers:
+  - url: https://YOUR_DEPLOYED_HOST
+    description: Replace with the deployed backend/ host before importing into a Custom GPT.
+paths:
+  /api/plugin/collect:
+    get:
+      operationId: collectUpdates
+      summary: Crawl enabled vendor sources and return fresh normalized documents
+      parameters:
+        - name: vendor
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by vendor id, e.g. OPENAI, ANTHROPIC, GOOGLE, META, SPRING, GITHUB
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [AI, JAVA, SECURITY]
+      responses:
+        "200":
+          description: List of freshly collected documents, newest crawl only (nothing is persisted server-side)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PluginDocument"
+        "401":
+          description: Missing or invalid X-Api-Key header
+security:
+  - ApiKeyAuth: []
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+  schemas:
+    PluginDocument:
+      type: object
+      properties:
+        vendor:
+          type: string
+        sourceId:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+          nullable: true
+        normalizedText:
+          type: string
+          description: Boilerplate-stripped page text, truncated to PLUGIN_MAX_CONTENT_CHARS.
+        contentHash:
+          type: string
+          description: sha256 of normalizedText - stable across identical re-crawls, useful for caller-side dedup.

@@ -1,0 +1,20 @@
+{
+  "name": "@noticement/email-mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "nodemailer": "^10.0.2",
+    "zod": "^4.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.2",
+    "@types/nodemailer": "^8.0.1",
+    "typescript": "^7.0.2"
+  }
+}

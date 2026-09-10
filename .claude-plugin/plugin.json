@@ -1,0 +1,24 @@
+{
+  "name": "noticement-collect",
+  "version": "0.1.0",
+  "description": "Check AI/Java/Security vendor release sources directly via WebFetch, summarize what's new, and optionally publish the digest to Notion and email it - no backend required for Claude.",
+  "author": { "name": "jihun-ann" },
+  "mcpServers": {
+    "email": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp/email-server/dist/index.js"],
+      "env": {
+        "SMTP_HOST": "${SMTP_HOST}",
+        "SMTP_PORT": "${SMTP_PORT}",
+        "SMTP_USER": "${SMTP_USER}",
+        "SMTP_PASS": "${SMTP_PASS}",
+        "SMTP_FROM": "${SMTP_FROM}"
+      }
+    },
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp"
+    }
+  }
+}

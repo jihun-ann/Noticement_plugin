@@ -1,0 +1,8 @@
+[
+  {"id": "openai-release", "vendor": "OPENAI", "category": "AI", "url": "https://openai.com/news/"},
+  {"id": "anthropic-release", "vendor": "ANTHROPIC", "category": "AI", "url": "https://www.anthropic.com/news"},
+  {"id": "google-ai-release", "vendor": "GOOGLE", "category": "AI", "url": "https://blog.google/technology/ai/"},
+  {"id": "meta-ai-release", "vendor": "META", "category": "AI", "url": "https://ai.meta.com/blog/"},
+  {"id": "spring-release", "vendor": "SPRING", "category": "JAVA", "url": "https://spring.io/blog"},
+  {"id": "github-security-advisories", "vendor": "GITHUB", "category": "SECURITY", "url": "https://github.com/advisories"}
+]

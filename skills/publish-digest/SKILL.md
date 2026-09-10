@@ -49,27 +49,38 @@ page and an email. Both side effects are done by calling MCP tools directly
      within 6 months or already past, and what free distribution someone on
      that version could move to instead of paying for Oracle Extended
      Support.
+   - For the standing reference page (step 5), go further than the digest
+     summary: one full table per distribution listing *every* version each
+     source returns (not just LTS lines) — non-LTS/minor versions included,
+     each marked EOL or not as of today. Ask each `*-eol` source's WebFetch
+     for the complete list explicitly (the default prompt already does:
+     it's the `prompt` field in `sources.json`), don't let it condense old
+     versions into a summary sentence.
    - A shorter plain-text/HTML version for the email: headline items plus
      "what needs attention" (e.g. security advisories, any Java version
      that's newly past EOL), and a link back to the Notion page once it's
      created.
 4. Create the Notion page with the `notion` MCP tools (create/append a page
    under the parent the user specified), then grab the resulting page URL.
-5. Maintain the standing "Java/JDK EOL 현황" reference page — this is a
-   separate, living document from the per-run digest page/row above, not
-   part of it:
-   - Search Notion for a page titled "Java/JDK EOL 현황" (`notion-search` or
-     `notion-fetch`). If the user hasn't said where it lives, look for it as
-     a subpage of the digest's parent page (e.g. "IT Digest").
-   - If found, overwrite its content in place with `notion-update-page` —
-     don't create a second copy.
-   - If not found, create it once as a subpage of the digest's parent
-     (`notion-create-pages` with that parent's `page_id`, not inside the
-     digest database — it's a reference doc, not a dated log row).
-   - Either way, the content is the full three-distribution comparison
-     table plus the policy explanation from step 3, with a "마지막
-     업데이트: <today's date>" line at the very top so anyone reading it can
-     tell how fresh it is.
+5. Maintain the standing "Java/JDK EOL 현황" reference section — this is a
+   living part of the digest's *parent page* itself (e.g. "IT Digest", the
+   page holding the digest database), not a separate subpage and not a row
+   in the database:
+   - `notion-fetch` the parent page first. If it already has a
+     `## Java/JDK EOL 현황` section, overwrite just that section with
+     `notion-update-page` (`update_content`, search/replace on the old
+     section text, or `replace_content` with the full page content
+     reproduced including the existing `<database>` block reference — do
+     NOT create a new page/subpage for this).
+   - If the section doesn't exist yet, add it with `insert_content`
+     (`position: {"type": "end"}`) on the parent page.
+   - The content is the full per-distribution version tables from step 3
+     plus the policy explanation, with a "마지막 업데이트: <today's date>"
+     line at the very top so anyone reading it can tell how fresh it is.
+   - **Markdown gotcha**: pass real line breaks in the `content`/`new_str`
+     string, never the literal two characters `\` `n`. A literal `\n` gets
+     parsed as an escaped "n" character (not a newline), which collapses
+     the whole section into one run-on paragraph and breaks every table.
 6. Send the email through the connected mail connector's send tool (Outlook
    `mail.send` / Gmail equivalent / whatever is available) with the
    recipient, a subject like "AI/Java/Security digest - <date>", and the

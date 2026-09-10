@@ -29,13 +29,27 @@ because "list announcements" doesn't make sense for them:
 - `lmarena-leaderboard` — Hugging Face dataset API, JSON rows. Note the
   `leaderboard_publish_date`; dataset snapshots lag the live site somewhat.
 - `oracle-jdk-eol`, `eclipse-temurin-eol`, `amazon-corretto-eol` — three
-  separate JDK distributions' EOL tables. Report all three, not just
-  Oracle's: the same version number has a different EOL date on each,
-  because support terms differ by distribution (Oracle sells Premier/
-  Extended commercial support; Temurin/Corretto are free and
-  community/vendor-backported on their own schedules). That difference is
-  itself the useful fact for anyone deciding whether to move off a
-  commercially-EOL'd version instead of paying for extended support.
+  separate JDK distributions' data, from endoflife.date's JSON API (not the
+  HTML page - the API is exact and machine-readable, no summarization risk
+  on the numbers). Report all three, not just Oracle's: the same major
+  version number has a different EOL date on each, because support terms
+  differ by distribution (Oracle sells Premier/Extended commercial support;
+  Temurin/Corretto are free and community/vendor-backported on their own
+  schedules). That difference is itself the useful fact for anyone deciding
+  whether to move off a commercially-EOL'd version instead of paying for
+  extended support.
+  - **Major version ≠ the patch actually running.** JDK releases are
+    versioned down to a patch/build (`17.0.20.1`, `8u452`, ...), not just
+    `17` or `8`. The API's `eol` field is a *major-line* calendar date; it
+    says nothing about whether a specific patch is current. Each vendor
+    ships new patch builds on a regular cadence (quarterly Critical Patch
+    Updates) that fix newly-disclosed CVEs — so within a major version that
+    is still fully supported, any patch older than the current `latest`
+    build is likely missing fixes for vulnerabilities disclosed since it
+    shipped. Always report the `latest` (patch build) and
+    `latestReleaseDate` fields alongside the major-line `eol` date, and
+    don't conflate "major version not yet EOL" with "this specific patch is
+    still secure."
 
 ## Steps
 

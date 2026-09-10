@@ -50,12 +50,16 @@ page and an email. Both side effects are done by calling MCP tools directly
      that version could move to instead of paying for Oracle Extended
      Support.
    - For the standing reference page (step 5), go further than the digest
-     summary: one full table per distribution listing *every* version each
-     source returns (not just LTS lines) — non-LTS/minor versions included,
-     each marked EOL or not as of today. Ask each `*-eol` source's WebFetch
-     for the complete list explicitly (the default prompt already does:
-     it's the `prompt` field in `sources.json`), don't let it condense old
-     versions into a summary sentence.
+     summary: one full table per distribution listing *every* major version
+     ("cycle") each source returns (not just LTS lines), and for each one
+     include its `latest` patch build and `latestReleaseDate` alongside the
+     `eol` date — don't let it condense old versions into a summary
+     sentence, and don't drop the `latest` field. That field is the actual
+     point: a major line being "not yet EOL" only means the *line* still
+     gets patches, not that whatever patch build is currently deployed is
+     current. Call out explicitly that anything older than `latest` for a
+     still-supported cycle should be treated as exposed to whatever CVEs
+     the newer patch builds fixed, independent of the `eol` date.
    - A shorter plain-text/HTML version for the email: headline items plus
      "what needs attention" (e.g. security advisories, any Java version
      that's newly past EOL), and a link back to the Notion page once it's

@@ -21,22 +21,22 @@
     "id": "oracle-jdk-eol",
     "vendor": "ORACLE_JDK",
     "category": "JAVA",
-    "url": "https://endoflife.date/oracle-jdk",
-    "prompt": "List each Oracle JDK version with its release date, Premier Support end date, and Extended Support end date (if any). Call out which versions are already past end-of-life as of today, and which are within 6 months of it. Also summarize the Premier/Extended/Sustaining support-tier policy described on the page."
+    "url": "https://endoflife.date/api/oracle-jdk.json",
+    "prompt": "This is the raw endoflife.date API for Oracle JDK: one object per major version ('cycle'), with releaseDate, eol (Premier Support end), extendedSupport (end date or false), latest (the current patch/update build, e.g. '17.0.20.1' or '8u452' - this is NOT the same as the major version), and latestReleaseDate (when that patch shipped). For every cycle, report: cycle, releaseDate, eol, extendedSupport, latest, latestReleaseDate, and whether eol has already passed as of today. Do not collapse rows - list every cycle in the JSON."
   },
   {
     "id": "eclipse-temurin-eol",
     "vendor": "ECLIPSE_TEMURIN",
     "category": "JAVA",
-    "url": "https://endoflife.date/eclipse-temurin",
-    "prompt": "List each Eclipse Temurin (OpenJDK) version with its release date and support-end date. Call out which versions are already past end-of-life and which are within 6 months of it. Summarize the release-cadence/support-policy notes on the page (6-month releases, LTS every 2 years, community backporting)."
+    "url": "https://endoflife.date/api/eclipse-temurin.json",
+    "prompt": "This is the raw endoflife.date API for Eclipse Temurin: one object per major version ('cycle'), with releaseDate, eol (support end), latest (the current patch/update build - NOT the same as the major version), and latestReleaseDate. For every cycle, report: cycle, releaseDate, eol, latest, latestReleaseDate, and whether eol has already passed as of today. Do not collapse rows - list every cycle in the JSON."
   },
   {
     "id": "amazon-corretto-eol",
     "vendor": "AMAZON_CORRETTO",
     "category": "JAVA",
-    "url": "https://endoflife.date/amazon-corretto",
-    "prompt": "List each Amazon Corretto version with its release date and support-end date. Call out which versions are already past end-of-life and which are within 6 months of it. Summarize any support-policy notes (e.g. extended support for specific versions)."
+    "url": "https://endoflife.date/api/amazon-corretto.json",
+    "prompt": "This is the raw endoflife.date API for Amazon Corretto: one object per major version ('cycle'), with releaseDate, eol (support end), latest (the current patch/update build - NOT the same as the major version), and latestReleaseDate. For every cycle, report: cycle, releaseDate, eol, latest, latestReleaseDate, and whether eol has already passed as of today. Do not collapse rows - list every cycle in the JSON."
   },
   {"id": "github-security-advisories", "vendor": "GITHUB", "category": "SECURITY", "url": "https://github.com/advisories"}
 ]

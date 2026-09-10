@@ -5,20 +5,20 @@ AI/Java/보안 벤더 릴리즈를 모아서 Claude 또는 ChatGPT 대화 안에
 (Spring Boot 자체 솔루션)의 `plugin` 브랜치 몫을 별도 저장소로 분리한 것.
 
 수집 대상은 분석/발행을 서버가 하지 않는다 — **호출한 AI 모델이 대화 중에
-직접** 요약하고 MCP 툴로 Notion/이메일에 반영한다. 이 저장소는 AI가 스스로 할
-수 없는 두 가지만 코드로 제공한다: ChatGPT용 크롤링 API(`backend/`)와 이메일
-발송 MCP 툴(`mcp/email-server/`).
+직접** 요약하고 MCP 툴/커넥터로 Notion/이메일에 반영한다. 이 저장소는 AI가
+스스로 할 수 없는 것 하나만 코드로 제공한다: ChatGPT용 크롤링 API(`backend/`).
+Notion은 공식 Notion MCP, 이메일은 사용자가 이미 연결해 둔 메일 커넥터
+(Outlook/Gmail 등)를 그대로 쓰기 때문에 이 저장소가 따로 구현하는 이메일
+발송 코드는 없다.
 
 ## 구조
 
-- `.claude-plugin/` — Claude Code 플러그인 매니페스트. `skills/`와
-  `mcp/email-server`(로컬), Notion 공식 원격 MCP를 선언한다.
+- `.claude-plugin/` — Claude Code 플러그인 매니페스트. `skills/`와 Notion
+  공식 원격 MCP를 선언한다.
 - `skills/collect-updates/` — 벤더 소스를 WebFetch로 훑어 채팅에 요약만
   보여주는 스킬. `sources.json`이 벤더 목록의 단일 소스.
-- `skills/publish-digest/` — 위 수집에 이어 Notion 페이지 생성 + 이메일
-  발송까지 하는 스킬.
-- `mcp/email-server/` — `send_email` 툴 하나만 있는 TypeScript MCP 서버
-  (stdio, nodemailer/SMTP).
+- `skills/publish-digest/` — 위 수집에 이어 Notion 페이지 생성 + (이미
+  연결된 메일 커넥터로) 이메일 발송까지 하는 스킬.
 - `backend/` — ChatGPT Custom GPT Action용 백엔드(Express). `GET
   /api/plugin/collect` 하나만 있고, DB나 분석 로직은 없음(무상태).
 - `openapi/plugin.yaml` — 위 엔드포인트의 OpenAPI 3.1 스펙. Custom GPT
@@ -31,20 +31,10 @@ AI/Java/보안 벤더 릴리즈를 모아서 Claude 또는 ChatGPT 대화 안에
 /plugin install noticement-collect@noticement
 ```
 
-`mcp/email-server`는 처음 설치 시 빌드가 안 되어 있으면 동작하지 않으니
-먼저 빌드해 둔다:
-
-```
-cd mcp/email-server && npm install && npm run build
-```
-
-이메일 발송용 환경변수 (`send_email` 호출 전 설정):
-
-- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS` — 필수
-- `SMTP_FROM` — 선택, 없으면 `SMTP_USER`로 발신
-
 Notion은 `plugin.json`에 선언된 공식 원격 MCP(`mcp.notion.com`)를 Claude에서
-연결/인증하면 된다 — 이 저장소는 아무것도 구현하지 않는다.
+연결/인증하면 된다 — 이 저장소는 아무것도 구현하지 않는다. 이메일은
+Outlook/Gmail 등 사용하는 메일 커넥터를 Claude 환경에 미리 연결해 두면
+`publish-digest` 스킬이 그 커넥터의 발송 툴을 그대로 호출한다.
 
 `collect-updates`는 채팅에 요약만 보여준다. `publish-digest`는 Notion 기록과
 이메일 발송까지 하므로, 실행 전에 수신 이메일 주소와 Notion 상위

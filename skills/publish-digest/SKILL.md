@@ -1,6 +1,6 @@
 ---
 name: publish-digest
-description: Collect AI/Java/Security vendor updates (same sources as collect-updates), write a summarized digest page to Notion via the Notion MCP, and email the digest to a recipient via the email MCP. Use when the user wants the update digest actually saved and sent, not just shown in chat.
+description: Collect AI/Java/Security vendor updates (same sources as collect-updates), write a summarized digest page to Notion via the Notion MCP, and email the digest via the user's connected mail account (Outlook/Gmail/etc). Use when the user wants the update digest actually saved and sent, not just shown in chat.
 ---
 
 # Publish Digest
@@ -15,10 +15,13 @@ page and an email. Both side effects are done by calling MCP tools directly
 - The `notion` MCP server (declared in this plugin's `plugin.json`, backed
   by Notion's official remote MCP at `mcp.notion.com`) must be connected and
   authorized. If it isn't, tell the user to connect it first.
-- The `email` MCP server (this plugin's local `mcp/email-server`) must have
-  `SMTP_HOST`/`SMTP_PORT`/`SMTP_USER`/`SMTP_PASS`/`SMTP_FROM` configured in
-  the environment. If `send_email` errors out with a config error, tell the
-  user to set those and reconnect.
+- A mail-sending connector must already be connected in this Claude
+  environment — e.g. the Outlook/Microsoft 365 or Gmail connector. This
+  plugin doesn't bundle its own email server or declare one in
+  `plugin.json`; it just calls whatever mail-send tool that connector
+  exposes (its exact name depends on which connector the user has). If none
+  is connected, tell the user to connect one before this step, rather than
+  failing silently.
 - You need a recipient email address and (optionally) a Notion parent
   page/database to file the new page under. Ask the user for these if they
   weren't given, rather than guessing or hardcoding one.
@@ -38,9 +41,10 @@ page and an email. Both side effects are done by calling MCP tools directly
      the Notion page once it's created.
 4. Create the Notion page with the `notion` MCP tools (create/append a page
    under the parent the user specified), then grab the resulting page URL.
-5. Call the `email` MCP's `send_email` tool with the recipient, a subject
-   like "AI/Java/Security digest - <date>", and the HTML body including the
-   Notion page URL from step 4.
+5. Send the email through the connected mail connector's send tool (Outlook
+   `mail.send` / Gmail equivalent / whatever is available) with the
+   recipient, a subject like "AI/Java/Security digest - <date>", and the
+   HTML body including the Notion page URL from step 4.
 6. Report back in chat: what was published where (Notion URL) and who the
    email was sent to. If either step failed, say which one and why — don't
    silently skip it.

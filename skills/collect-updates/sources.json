@@ -1,5 +1,11 @@
 [
-  {"id": "openai-release", "vendor": "OPENAI", "category": "AI", "url": "https://openai.com/news/"},
+  {
+    "id": "openai-release",
+    "vendor": "OPENAI",
+    "category": "AI",
+    "url": "https://openai.com/news/rss.xml",
+    "prompt": "List each item in this RSS feed with its title, pubDate, and a one-sentence summary of the description. Limit to the most recent 20 items."
+  },
   {"id": "anthropic-release", "vendor": "ANTHROPIC", "category": "AI", "url": "https://www.anthropic.com/news"},
   {"id": "google-ai-release", "vendor": "GOOGLE", "category": "AI", "url": "https://blog.google/technology/ai/"},
   {"id": "meta-ai-release", "vendor": "META", "category": "AI", "url": "https://ai.meta.com/blog/"},

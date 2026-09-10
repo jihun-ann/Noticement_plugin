@@ -18,11 +18,25 @@
   },
   {"id": "spring-release", "vendor": "SPRING", "category": "JAVA", "url": "https://spring.io/blog"},
   {
-    "id": "java-eol",
-    "vendor": "JAVA_EOL",
+    "id": "oracle-jdk-eol",
+    "vendor": "ORACLE_JDK",
     "category": "JAVA",
     "url": "https://endoflife.date/oracle-jdk",
-    "prompt": "List each Oracle JDK version with its release date and end-of-life/end-of-support date(s), and clearly call out which versions are already past end-of-life as of today, and which are within 6 months of it."
+    "prompt": "List each Oracle JDK version with its release date, Premier Support end date, and Extended Support end date (if any). Call out which versions are already past end-of-life as of today, and which are within 6 months of it. Also summarize the Premier/Extended/Sustaining support-tier policy described on the page."
+  },
+  {
+    "id": "eclipse-temurin-eol",
+    "vendor": "ECLIPSE_TEMURIN",
+    "category": "JAVA",
+    "url": "https://endoflife.date/eclipse-temurin",
+    "prompt": "List each Eclipse Temurin (OpenJDK) version with its release date and support-end date. Call out which versions are already past end-of-life and which are within 6 months of it. Summarize the release-cadence/support-policy notes on the page (6-month releases, LTS every 2 years, community backporting)."
+  },
+  {
+    "id": "amazon-corretto-eol",
+    "vendor": "AMAZON_CORRETTO",
+    "category": "JAVA",
+    "url": "https://endoflife.date/amazon-corretto",
+    "prompt": "List each Amazon Corretto version with its release date and support-end date. Call out which versions are already past end-of-life and which are within 6 months of it. Summarize any support-policy notes (e.g. extended support for specific versions)."
   },
   {"id": "github-security-advisories", "vendor": "GITHUB", "category": "SECURITY", "url": "https://github.com/advisories"}
 ]

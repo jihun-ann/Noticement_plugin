@@ -1,6 +1,6 @@
 ---
 name: collect-updates
-description: Check the registered AI/Java/Security sources (OpenAI, Anthropic, Google, Meta release blogs, the LMArena leaderboard dataset, Spring, Oracle JDK end-of-life dates, GitHub Security Advisories) directly via WebFetch and summarize what's new. Use when the user asks for the latest AI/Java/security release updates, model rankings, or Java EOL status.
+description: Check the registered AI/Java/Security sources (OpenAI, Anthropic, Google, Meta release blogs, the LMArena leaderboard dataset, Spring, Oracle JDK/Eclipse Temurin/Amazon Corretto end-of-life dates, GitHub Security Advisories) directly via WebFetch and summarize what's new. Use when the user asks for the latest AI/Java/security release updates, model rankings, or Java/JDK EOL status.
 ---
 
 # Collect Updates
@@ -21,12 +21,21 @@ Read `sources.json` next to this file for the current list (`id`, `vendor`,
 `category`, `url`, optional `prompt`). If the user asked for a subset (e.g.
 "OpenAI 것만"), filter by `vendor`/`category`; otherwise check all of them.
 
-Most sources are vendor blog/announcement pages. Two aren't:
-`lmarena-leaderboard` (a Hugging Face dataset API, JSON rows) and `java-eol`
-(a structured EOL table) — those have their own `prompt` in `sources.json`
-because "list announcements" doesn't make sense for them. Note the LMArena
-data has a `leaderboard_publish_date` — mention it, since dataset snapshots
-lag the live site somewhat.
+Most sources are vendor blog/announcement pages (OpenAI's is its RSS feed,
+not the HTML page - the HTML page 403s under WebFetch/Cloudflare). A few
+aren't announcement-shaped and carry their own `prompt` in `sources.json`
+because "list announcements" doesn't make sense for them:
+
+- `lmarena-leaderboard` — Hugging Face dataset API, JSON rows. Note the
+  `leaderboard_publish_date`; dataset snapshots lag the live site somewhat.
+- `oracle-jdk-eol`, `eclipse-temurin-eol`, `amazon-corretto-eol` — three
+  separate JDK distributions' EOL tables. Report all three, not just
+  Oracle's: the same version number has a different EOL date on each,
+  because support terms differ by distribution (Oracle sells Premier/
+  Extended commercial support; Temurin/Corretto are free and
+  community/vendor-backported on their own schedules). That difference is
+  itself the useful fact for anyone deciding whether to move off a
+  commercially-EOL'd version instead of paying for extended support.
 
 ## Steps
 

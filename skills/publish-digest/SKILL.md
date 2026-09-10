@@ -1,6 +1,6 @@
 ---
 name: publish-digest
-description: Collect AI/Java/Security vendor updates (same sources as collect-updates), write a summarized digest page to Notion via the Notion MCP, and email the digest via the user's connected mail account (Outlook/Gmail/etc). Use when the user wants the update digest actually saved and sent, not just shown in chat.
+description: Collect AI/Java/Security vendor updates (same sources as collect-updates), write a summarized digest page to Notion via the Notion MCP, keep a standing Java/JDK EOL reference page up to date, and email the digest via the user's connected mail account (Outlook/Gmail/etc). Use when the user wants the update digest actually saved and sent, not just shown in chat.
 ---
 
 # Publish Digest
@@ -37,22 +37,46 @@ page and an email. Both side effects are done by calling MCP tools directly
 3. Compose the digest content once, from the fetched summaries:
    - A short markdown/blocks body for the Notion page, with sections:
      vendor release notes (OpenAI/Anthropic/Google/Meta/Spring), an "AI
-     model rankings" section from `lmarena-leaderboard`, a "Java EOL"
-     section from `java-eol`, and a security section from GitHub
-     Advisories.
+     model rankings" section from `lmarena-leaderboard`, a Java section, and
+     a security section from GitHub Advisories.
+   - The Java section is not just Oracle's table — combine all three
+     `*-eol` sources (`oracle-jdk-eol`, `eclipse-temurin-eol`,
+     `amazon-corretto-eol`) into one comparison, since the same version
+     number has a different EOL date on each distribution. Explain *why*
+     briefly (Oracle Premier/Extended commercial support vs. Temurin/
+     Corretto's free community/vendor-backported support), then call out
+     what's actionable right now: any LTS version whose *Oracle* support is
+     within 6 months or already past, and what free distribution someone on
+     that version could move to instead of paying for Oracle Extended
+     Support.
    - A shorter plain-text/HTML version for the email: headline items plus
      "what needs attention" (e.g. security advisories, any Java version
      that's newly past EOL), and a link back to the Notion page once it's
      created.
 4. Create the Notion page with the `notion` MCP tools (create/append a page
    under the parent the user specified), then grab the resulting page URL.
-5. Send the email through the connected mail connector's send tool (Outlook
+5. Maintain the standing "Java/JDK EOL 현황" reference page — this is a
+   separate, living document from the per-run digest page/row above, not
+   part of it:
+   - Search Notion for a page titled "Java/JDK EOL 현황" (`notion-search` or
+     `notion-fetch`). If the user hasn't said where it lives, look for it as
+     a subpage of the digest's parent page (e.g. "IT Digest").
+   - If found, overwrite its content in place with `notion-update-page` —
+     don't create a second copy.
+   - If not found, create it once as a subpage of the digest's parent
+     (`notion-create-pages` with that parent's `page_id`, not inside the
+     digest database — it's a reference doc, not a dated log row).
+   - Either way, the content is the full three-distribution comparison
+     table plus the policy explanation from step 3, with a "마지막
+     업데이트: <today's date>" line at the very top so anyone reading it can
+     tell how fresh it is.
+6. Send the email through the connected mail connector's send tool (Outlook
    `mail.send` / Gmail equivalent / whatever is available) with the
    recipient, a subject like "AI/Java/Security digest - <date>", and the
    HTML body including the Notion page URL from step 4.
-6. Report back in chat: what was published where (Notion URL) and who the
-   email was sent to. If either step failed, say which one and why — don't
-   silently skip it.
+7. Report back in chat: what was published/updated where (digest page URL,
+   Java EOL reference page URL) and who the email was sent to. If any step
+   failed, say which one and why — don't silently skip it.
 
 ## Scheduling
 

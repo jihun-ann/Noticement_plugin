@@ -54,11 +54,16 @@ page and an email. Both side effects are done by calling MCP tools directly
      even if it's unchanged from the previous digest — this skill has no
      state to diff against anyway, and "no change, see yesterday's entry"
      makes each entry depend on another one instead of standing alone.
-   - The Java section covers more than release announcements: pull actual
-     feature/change detail from `spring-boot-releases` (real changelog
-     bullets, not just "version X released") and `openjdk-jeps` (which
-     language/JVM features are landing in upcoming Java versions), not just
-     the thin blurbs from `spring-release`'s blog index.
+   - The Java section needs both parts, not just one: a dated release list
+     from `spring-release` (same vendor/date pattern as the AI section
+     above), *and* a separate "버전별 기능 상세" breakdown pulling real
+     feature/change detail from `openjdk-jeps` (grouped by JDK version, one
+     line of JEP numbers+titles per version) and `spring-boot-releases`
+     (grouped by Spring Boot version, real changelog bullets - not just
+     "version X released"). Skipping either half is an incomplete Java
+     section. Use `·` or line breaks to separate items within a version's
+     line, not commas — long comma-separated clauses inside one bullet have
+     gotten mis-split into stray sub-bullets when written to Notion before.
    - The Java section's EOL data is not just Oracle's table — combine all
      three `*-eol` sources (`oracle-jdk-eol`, `eclipse-temurin-eol`,
      `amazon-corretto-eol`) into one comparison, since the same version

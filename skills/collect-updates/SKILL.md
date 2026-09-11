@@ -89,9 +89,19 @@ A few sources aren't announcement-shaped and carry their own `prompt` in
 2. If a fetch fails or comes back blocked (some sites rate-limit or
    challenge automated fetches), say so for that one vendor and move on —
    don't fail the whole run over a single source.
-3. Present the summary grouped by vendor, directly in the conversation.
-   There is no separate web page or dashboard for this path — the chat
-   itself is the output.
+3. Present the release/announcement items **grouped by date, not by
+   vendor** — a `### YYYY-MM-DD` heading per day (newest first), with every
+   item from every source that happened that day listed under it as
+   `[Vendor] summary`. Merging same-day items across vendors under one
+   heading is the point: a reader scanning the digest should see "what
+   happened on the 9th" in one place, not have to cross-reference four
+   separate per-vendor lists to reconstruct a timeline. Items with no
+   discoverable date go in a trailing `### 날짜 미확인` group — never drop
+   the date silently, and never omit an item just because a date wasn't
+   available. (Sources that aren't announcement timelines — the leaderboard,
+   the EOL tables, CVE indexes — keep their own natural shape instead; this
+   date-grouping applies to the release/news sources.) There is no separate
+   web page or dashboard for this path — the chat itself is the output.
 4. If the user wants this repeated on a schedule, that's Claude Code's own
    `schedule`/`loop` mechanism (or Claude.ai's scheduled tasks in a web
    session) re-invoking this skill — this skill itself has no background

@@ -35,13 +35,25 @@ page and an email. Both side effects are done by calling MCP tools directly
    announcement-summary prompt. Skip and note any source that fails or is
    blocked — don't abort the whole run over one vendor.
 3. Compose the digest content once, from the fetched summaries:
-   - A short markdown/blocks body for the Notion page, with sections:
-     vendor release + company news (OpenAI/Anthropic/Google incl.
+   - A short markdown/blocks body for the Notion page, with sections: an
+     AI release/company-news section (OpenAI/Anthropic/Google incl.
      `google-news`/Meta incl. `meta-news`/NVIDIA), an "AI model rankings"
      section from `lmarena-leaderboard`, a Java section, a Python section, a
      security section (GitHub Advisories + `nvidia-cve-index` +
      `oracle-java-cpu` if it wasn't blocked), and an "IT 트렌드" section from
      `hn-frontpage` for broader industry signal beyond the named vendors.
+   - The AI release/company-news section is grouped **by date, not by
+     vendor** — a `### YYYY-MM-DD` heading per day (newest first), every
+     item from every vendor that happened that day listed under it as
+     `[Vendor] summary`. Same rule for the Python release section if it has
+     enough items to benefit from it. Never drop an item's date silently;
+     put undated items in a trailing `### 날짜 미확인` group instead.
+     (Sources with their own natural shape — the leaderboard, EOL tables,
+     CVE indexes — don't need this; it's for the release/news timelines.)
+   - The "AI model rankings" table always gets printed in full, every run,
+     even if it's unchanged from the previous digest — this skill has no
+     state to diff against anyway, and "no change, see yesterday's entry"
+     makes each entry depend on another one instead of standing alone.
    - The Java section covers more than release announcements: pull actual
      feature/change detail from `spring-boot-releases` (real changelog
      bullets, not just "version X released") and `openjdk-jeps` (which

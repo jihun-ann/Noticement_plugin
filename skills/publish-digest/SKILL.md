@@ -96,6 +96,12 @@ page and an email. Both side effects are done by calling MCP tools directly
      "what needs attention" (e.g. security advisories, any Java version
      that's newly past EOL), and a link back to the Notion page once it's
      created.
+   - The database row's "주요 내용" property is a **list, not a paragraph**:
+     one `- ` line per major section (AI vendors, model rankings, Java,
+     Python, security, IT), each line a compressed highlight of that
+     section — not one dense run-on sentence covering everything. This is
+     the text that shows in the database's table/list view without opening
+     the page, so it needs to scan as separate points at a glance.
 4. Create the Notion page with the `notion` MCP tools (create/append a page
    under the parent the user specified), then grab the resulting page URL.
 5. Maintain the standing "Java/JDK EOL 현황" reference section — this is a

@@ -1,6 +1,6 @@
 ---
 name: collect-updates
-description: Check the registered AI/Java/Python/Security/IT sources (OpenAI, Anthropic, Google, Meta, NVIDIA release+company-news blogs, the LMArena leaderboard dataset, Spring/Spring Boot/OpenJDK JEPs, Oracle JDK/Eclipse Temurin/Amazon Corretto and CPython end-of-life+patch data, GitHub Security Advisories, NVIDIA CVEs, Oracle CPU advisories, Hacker News) directly via WebFetch and summarize what's new. Use when the user asks for the latest AI/Java/Python/security/IT updates, model rankings, or language EOL status.
+description: Check the registered AI/Java/Python/Security/IT sources (OpenAI, Anthropic, Google, Meta, NVIDIA release+company-news blogs, the LMArena leaderboard dataset, Spring/Spring Boot/OpenJDK JEPs, Python release blog/PEPs, Oracle JDK/Eclipse Temurin/Amazon Corretto and CPython end-of-life+patch data, GitHub Security Advisories, NVIDIA CVEs, Oracle CPU advisories, Hacker News) directly via WebFetch and summarize what's new. Use when the user asks for the latest AI/Java/Python/security/IT updates, model rankings, or language EOL/feature status.
 ---
 
 # Collect Updates
@@ -40,6 +40,10 @@ A few sources aren't announcement-shaped and carry their own `prompt` in
 - `openjdk-jeps` — the master JDK Enhancement Proposal index, i.e. the
   actual language/JVM features landing in upcoming Java releases,
   independent of any one distribution's build.
+- `python-peps` — the master PEP (Python Enhancement Proposal) index, the
+  Python equivalent of `openjdk-jeps`: actual language/stdlib/C-API
+  features, not just "3.15.0 beta N is out" version-bump announcements
+  from `python-release-blog`.
 - `python-eol` — same pattern and same caveat as the JDK `*-eol` sources
   below: endoflife.date's JSON API, with a `latest` patch build per minor
   version separate from the `eol` calendar date.
@@ -89,19 +93,13 @@ A few sources aren't announcement-shaped and carry their own `prompt` in
 2. If a fetch fails or comes back blocked (some sites rate-limit or
    challenge automated fetches), say so for that one vendor and move on —
    don't fail the whole run over a single source.
-3. Present the release/announcement items **grouped by date, not by
-   vendor** — a `### YYYY-MM-DD` heading per day (newest first), with every
-   item from every source that happened that day listed under it as
-   `[Vendor] summary`. Merging same-day items across vendors under one
-   heading is the point: a reader scanning the digest should see "what
-   happened on the 9th" in one place, not have to cross-reference four
-   separate per-vendor lists to reconstruct a timeline. Items with no
-   discoverable date go in a trailing `### 날짜 미확인` group — never drop
-   the date silently, and never omit an item just because a date wasn't
-   available. (Sources that aren't announcement timelines — the leaderboard,
-   the EOL tables, CVE indexes — keep their own natural shape instead; this
-   date-grouping applies to the release/news sources.) There is no separate
-   web page or dashboard for this path — the chat itself is the output.
+3. Present the summary **grouped by vendor** (one heading per vendor), and
+   **within each vendor's list, sort items newest-first with the date shown
+   on every item** — a bare title with no date isn't useful for a digest
+   meant to show what's new *when*. If a source genuinely has no date for
+   an item, say so explicitly rather than omitting the date silently. There
+   is no separate web page or dashboard for this path — the chat itself is
+   the output.
 4. If the user wants this repeated on a schedule, that's Claude Code's own
    `schedule`/`loop` mechanism (or Claude.ai's scheduled tasks in a web
    session) re-invoking this skill — this skill itself has no background

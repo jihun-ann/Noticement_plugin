@@ -61,6 +61,13 @@
     "prompt": "List each item in this RSS feed with its title, pubDate, and a one-sentence summary. Limit to the most recent 15 items, and prioritize feature/language-change announcements (new version releases, PEPs, JIT/performance work) over routine patch-release notices if there isn't room for both."
   },
   {
+    "id": "python-peps",
+    "vendor": "PYTHON",
+    "category": "PYTHON",
+    "url": "https://peps.python.org/",
+    "prompt": "This is the master PEP (Python Enhancement Proposal) index - the actual language/stdlib/C-API features being added to Python, the Python equivalent of Java's JEPs. List the PEPs targeted to or accepted/final for the most recent 1-2 Python feature releases, with PEP number, title, and status (Accepted/Final/Draft/Open/etc.)."
+  },
+  {
     "id": "python-eol",
     "vendor": "PYTHON",
     "category": "PYTHON",

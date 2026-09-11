@@ -1,6 +1,6 @@
 ---
 name: publish-digest
-description: Collect AI/Java/Python/Security/IT updates (same sources as collect-updates, including NVIDIA, company-news blogs, and Hacker News), write a summarized digest page to Notion via the Notion MCP, keep a standing Java/JDK EOL reference page up to date, and email the digest via the user's connected mail account (Outlook/Gmail/etc). Use when the user wants the update digest actually saved and sent, not just shown in chat.
+description: Collect AI/Java/Python/Security/IT updates (same sources as collect-updates, including NVIDIA, company-news blogs, JEPs/PEPs, and Hacker News), write a summarized digest page to Notion via the Notion MCP, keep a standing Java/JDK EOL reference page up to date, and email the digest via the user's connected mail account (Outlook/Gmail/etc). Use when the user wants the update digest actually saved and sent, not just shown in chat.
 ---
 
 # Publish Digest
@@ -42,14 +42,14 @@ page and an email. Both side effects are done by calling MCP tools directly
      security section (GitHub Advisories + `nvidia-cve-index` +
      `oracle-java-cpu` if it wasn't blocked), and an "IT 트렌드" section from
      `hn-frontpage` for broader industry signal beyond the named vendors.
-   - The AI release/company-news section is grouped **by date, not by
-     vendor** — a `### YYYY-MM-DD` heading per day (newest first), every
-     item from every vendor that happened that day listed under it as
-     `[Vendor] summary`. Same rule for the Python release section if it has
-     enough items to benefit from it. Never drop an item's date silently;
-     put undated items in a trailing `### 날짜 미확인` group instead.
-     (Sources with their own natural shape — the leaderboard, EOL tables,
-     CVE indexes — don't need this; it's for the release/news timelines.)
+   - The AI release/company-news section is grouped **by vendor** (one
+     `### Vendor` heading each), and **within each vendor's list, items are
+     sorted newest-first with the date shown on every item** — never a bare
+     title with no date. Same rule for the Python release section. If a
+     source genuinely has no date for an item, say so explicitly rather
+     than dropping the date silently. (Sources with their own natural
+     shape — the leaderboard, EOL tables, CVE indexes — don't follow this
+     vendor/date pattern; it's for the release/news lists specifically.)
    - The "AI model rankings" table always gets printed in full, every run,
      even if it's unchanged from the previous digest — this skill has no
      state to diff against anyway, and "no change, see yesterday's entry"
@@ -69,10 +69,13 @@ page and an email. Both side effects are done by calling MCP tools directly
      within 6 months or already past, and what free distribution someone on
      that version could move to instead of paying for Oracle Extended
      Support.
-   - The Python section: recent release/feature news from
-     `python-release-blog`, plus EOL status from `python-eol` (same
-     "major/minor line not-EOL ≠ your patch is current" caveat as Java -
-     report the `latest` patch build, not just the `eol` date).
+   - The Python section, same treatment as Java: version-bump announcements
+     from `python-release-blog` are just "3.15.0 beta N is out" - pull the
+     actual language/stdlib feature detail from `python-peps` (the PEP
+     index, Python's equivalent of `openjdk-jeps`) alongside it. Then EOL
+     status from `python-eol` (same "minor line not-EOL ≠ your patch is
+     current" caveat as Java - report the `latest` patch build, not just
+     the `eol` date).
    - For the standing reference page (step 5), go further than the digest
      summary: one full table per distribution listing *every* major version
      ("cycle") each source returns (not just LTS lines), and for each one

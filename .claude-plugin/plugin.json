@@ -1,7 +1,7 @@
 {
   "name": "noticement-collect",
   "version": "0.1.0",
-  "description": "Check AI/Java/Security vendor release sources directly via WebFetch, summarize what's new, and optionally publish the digest to Notion and email it via your connected mail account - no backend required for Claude.",
+  "description": "Check AI/Java/Security/IT sources (incl. NVIDIA, Hacker News) directly via WebFetch, summarize what's new, and optionally publish the digest to Notion and email it via your connected mail account - no backend required for Claude.",
   "author": { "name": "jihun-ann" },
   "mcpServers": {
     "notion": {

@@ -9,6 +9,14 @@
   {"id": "anthropic-release", "vendor": "ANTHROPIC", "category": "AI", "url": "https://www.anthropic.com/news"},
   {"id": "google-ai-release", "vendor": "GOOGLE", "category": "AI", "url": "https://blog.google/technology/ai/"},
   {"id": "meta-ai-release", "vendor": "META", "category": "AI", "url": "https://ai.meta.com/blog/"},
+  {"id": "nvidia-blog", "vendor": "NVIDIA", "category": "AI", "url": "https://blogs.nvidia.com/feed/"},
+  {
+    "id": "nvidia-developer-blog",
+    "vendor": "NVIDIA",
+    "category": "AI",
+    "url": "https://developer.nvidia.com/blog/feed",
+    "prompt": "List each item in this RSS feed with its title, pubDate, and a one-sentence summary - this is NVIDIA's developer blog, so favor items about APIs/SDKs (CUDA, TensorRT, NIM, cuDNN, etc.) if there are more than 20 items."
+  },
   {
     "id": "lmarena-leaderboard",
     "vendor": "LMARENA",
@@ -38,5 +46,26 @@
     "url": "https://endoflife.date/api/amazon-corretto.json",
     "prompt": "This is the raw endoflife.date API for Amazon Corretto: one object per major version ('cycle'), with releaseDate, eol (support end), latest (the current patch/update build - NOT the same as the major version), and latestReleaseDate. For every cycle, report: cycle, releaseDate, eol, latest, latestReleaseDate, and whether eol has already passed as of today. Do not collapse rows - list every cycle in the JSON."
   },
-  {"id": "github-security-advisories", "vendor": "GITHUB", "category": "SECURITY", "url": "https://github.com/advisories"}
+  {"id": "github-security-advisories", "vendor": "GITHUB", "category": "SECURITY", "url": "https://github.com/advisories"},
+  {
+    "id": "oracle-java-cpu",
+    "vendor": "ORACLE_JDK",
+    "category": "SECURITY",
+    "url": "https://www.oracle.com/security-alerts/",
+    "prompt": "List the most recent quarterly Critical Patch Update (CPU) advisories on this page with their date and link, especially anything mentioning Java SE - these are what fix the CVEs behind each 'latest' JDK patch build."
+  },
+  {
+    "id": "nvidia-cve-index",
+    "vendor": "NVIDIA",
+    "category": "SECURITY",
+    "url": "https://raw.githubusercontent.com/NVIDIA/product-security/main/2026/CVE_index.md",
+    "prompt": "This is a table of NVIDIA's published CVEs for the current year. List the 15 most severe (highest CVSS, CRITICAL then HIGH) distinct entries with CVE ID, CVSS score/severity, affected product, and fixed-in version. Deduplicate rows that share the same CVE across product variants - note the product family once."
+  },
+  {
+    "id": "hn-frontpage",
+    "vendor": "HACKERNEWS",
+    "category": "IT",
+    "url": "https://hnrss.org/frontpage",
+    "prompt": "List the top 15 items in this RSS feed (title and link). This is the Hacker News front page - a general tech-industry pulse, not curated for any one topic. If there are more than 15, prioritize AI, Java/JVM, and security/infrastructure stories."
+  }
 ]

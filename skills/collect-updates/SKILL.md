@@ -1,6 +1,6 @@
 ---
 name: collect-updates
-description: Check the registered AI/Java/Security sources (OpenAI, Anthropic, Google, Meta release blogs, the LMArena leaderboard dataset, Spring, Oracle JDK/Eclipse Temurin/Amazon Corretto end-of-life dates, GitHub Security Advisories) directly via WebFetch and summarize what's new. Use when the user asks for the latest AI/Java/security release updates, model rankings, or Java/JDK EOL status.
+description: Check the registered AI/Java/Security/IT sources (OpenAI, Anthropic, Google, Meta, NVIDIA release blogs, the LMArena leaderboard dataset, Spring, Oracle JDK/Eclipse Temurin/Amazon Corretto end-of-life dates, GitHub Security Advisories, NVIDIA CVEs, Oracle CPU advisories, Hacker News) directly via WebFetch and summarize what's new. Use when the user asks for the latest AI/Java/security/IT updates, model rankings, or Java/JDK EOL status.
 ---
 
 # Collect Updates
@@ -50,6 +50,21 @@ because "list announcements" doesn't make sense for them:
     `latestReleaseDate` fields alongside the major-line `eol` date, and
     don't conflate "major version not yet EOL" with "this specific patch is
     still secure."
+- `oracle-java-cpu` — Oracle's Critical Patch Update advisory index, the
+  actual security bulletins behind each JDK "latest" patch build above.
+  **Oracle blocks WebFetch here (403, same bot-check as OpenAI's HTML
+  page)** — unlike OpenAI, there's no RSS alternative, so this one usually
+  just fails and gets skipped per the normal policy below. (It does work
+  through `backend/`, which sets a browser User-Agent — see
+  `collector.ts`.)
+- `nvidia-cve-index` — NVIDIA's own published-CVE index on GitHub
+  (`NVIDIA/product-security`), one markdown table per year. The URL is
+  pinned to the current year (`.../2026/CVE_index.md`); bump it in
+  `sources.json` each January or it 404s.
+- `hn-frontpage` — Hacker News's front page (via `hnrss.org`), a general
+  tech-industry pulse rather than an AI/Java/Security-specific source.
+  Covers the broader "IT news/trends" ask that the vendor-specific sources
+  don't.
 
 ## Steps
 

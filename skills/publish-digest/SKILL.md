@@ -1,6 +1,6 @@
 ---
 name: publish-digest
-description: Collect AI/Java/Security vendor updates (same sources as collect-updates), write a summarized digest page to Notion via the Notion MCP, keep a standing Java/JDK EOL reference page up to date, and email the digest via the user's connected mail account (Outlook/Gmail/etc). Use when the user wants the update digest actually saved and sent, not just shown in chat.
+description: Collect AI/Java/Security/IT updates (same sources as collect-updates, including NVIDIA and Hacker News), write a summarized digest page to Notion via the Notion MCP, keep a standing Java/JDK EOL reference page up to date, and email the digest via the user's connected mail account (Outlook/Gmail/etc). Use when the user wants the update digest actually saved and sent, not just shown in chat.
 ---
 
 # Publish Digest
@@ -36,9 +36,11 @@ page and an email. Both side effects are done by calling MCP tools directly
    blocked — don't abort the whole run over one vendor.
 3. Compose the digest content once, from the fetched summaries:
    - A short markdown/blocks body for the Notion page, with sections:
-     vendor release notes (OpenAI/Anthropic/Google/Meta/Spring), an "AI
-     model rankings" section from `lmarena-leaderboard`, a Java section, and
-     a security section from GitHub Advisories.
+     vendor release notes (OpenAI/Anthropic/Google/Meta/NVIDIA/Spring), an
+     "AI model rankings" section from `lmarena-leaderboard`, a Java section,
+     a security section (GitHub Advisories + `nvidia-cve-index` +
+     `oracle-java-cpu` if it wasn't blocked), and an "IT 트렌드" section from
+     `hn-frontpage` for broader industry signal beyond the named vendors.
    - The Java section is not just Oracle's table — combine all three
      `*-eol` sources (`oracle-jdk-eol`, `eclipse-temurin-eol`,
      `amazon-corretto-eol`) into one comparison, since the same version

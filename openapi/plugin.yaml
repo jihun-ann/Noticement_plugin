@@ -2,10 +2,10 @@ openapi: 3.1.0
 info:
   title: Noticement Collect Plugin
   description: >
-    Crawls registered AI/Java/Security vendor sources (OpenAI, Anthropic, Google, Meta, Spring,
-    GitHub Security Advisories) and returns fresh, normalized text. This plugin does not analyze
-    or summarize the content itself - the calling model (ChatGPT) does that after receiving the
-    response.
+    Crawls registered AI/Java/Security/IT sources (OpenAI, Anthropic, Google, Meta, NVIDIA, Spring,
+    Oracle/Eclipse Temurin/Amazon Corretto JDK EOL data, GitHub Security Advisories, NVIDIA CVEs,
+    Hacker News) and returns fresh, normalized text. This plugin does not analyze or summarize the
+    content itself - the calling model (ChatGPT) does that after receiving the response.
   version: "1.0.0"
 servers:
   - url: https://YOUR_DEPLOYED_HOST
@@ -21,13 +21,13 @@ paths:
           required: false
           schema:
             type: string
-          description: Filter by vendor id, e.g. OPENAI, ANTHROPIC, GOOGLE, META, SPRING, GITHUB
+          description: Filter by vendor id, e.g. OPENAI, ANTHROPIC, GOOGLE, META, NVIDIA, SPRING, GITHUB, HACKERNEWS
         - name: category
           in: query
           required: false
           schema:
             type: string
-            enum: [AI, JAVA, SECURITY]
+            enum: [AI, JAVA, SECURITY, IT]
       responses:
         "200":
           description: List of freshly collected documents, newest crawl only (nothing is persisted server-side)

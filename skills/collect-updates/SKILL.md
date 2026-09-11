@@ -1,6 +1,6 @@
 ---
 name: collect-updates
-description: Check the registered AI/Java/Security/IT sources (OpenAI, Anthropic, Google, Meta, NVIDIA release blogs, the LMArena leaderboard dataset, Spring, Oracle JDK/Eclipse Temurin/Amazon Corretto end-of-life dates, GitHub Security Advisories, NVIDIA CVEs, Oracle CPU advisories, Hacker News) directly via WebFetch and summarize what's new. Use when the user asks for the latest AI/Java/security/IT updates, model rankings, or Java/JDK EOL status.
+description: Check the registered AI/Java/Python/Security/IT sources (OpenAI, Anthropic, Google, Meta, NVIDIA release+company-news blogs, the LMArena leaderboard dataset, Spring/Spring Boot/OpenJDK JEPs, Oracle JDK/Eclipse Temurin/Amazon Corretto and CPython end-of-life+patch data, GitHub Security Advisories, NVIDIA CVEs, Oracle CPU advisories, Hacker News) directly via WebFetch and summarize what's new. Use when the user asks for the latest AI/Java/Python/security/IT updates, model rankings, or language EOL status.
 ---
 
 # Collect Updates
@@ -22,12 +22,27 @@ Read `sources.json` next to this file for the current list (`id`, `vendor`,
 "OpenAI 것만"), filter by `vendor`/`category`; otherwise check all of them.
 
 Most sources are vendor blog/announcement pages (OpenAI's is its RSS feed,
-not the HTML page - the HTML page 403s under WebFetch/Cloudflare). A few
-aren't announcement-shaped and carry their own `prompt` in `sources.json`
-because "list announcements" doesn't make sense for them:
+not the HTML page - the HTML page 403s under WebFetch/Cloudflare). Google
+and Meta each have *two* entries: `*-ai-release` (their AI-specific blog)
+and `*-news` (their general official blog/newsroom) - use both, since
+company news (funding, policy, leadership, non-AI product launches) often
+doesn't show up on the AI-only blog. Anthropic and OpenAI don't need a
+second entry - their one feed already mixes product and company news.
+
+A few sources aren't announcement-shaped and carry their own `prompt` in
+`sources.json` because "list announcements" doesn't make sense for them:
 
 - `lmarena-leaderboard` — Hugging Face dataset API, JSON rows. Note the
   `leaderboard_publish_date`; dataset snapshots lag the live site somewhat.
+- `spring-boot-releases` — Spring Boot's GitHub Releases page, for actual
+  changelog bullet points (not just "version X released" from the blog
+  index at `spring-release`, whose excerpts are usually one thin sentence).
+- `openjdk-jeps` — the master JDK Enhancement Proposal index, i.e. the
+  actual language/JVM features landing in upcoming Java releases,
+  independent of any one distribution's build.
+- `python-eol` — same pattern and same caveat as the JDK `*-eol` sources
+  below: endoflife.date's JSON API, with a `latest` patch build per minor
+  version separate from the `eol` calendar date.
 - `oracle-jdk-eol`, `eclipse-temurin-eol`, `amazon-corretto-eol` — three
   separate JDK distributions' data, from endoflife.date's JSON API (not the
   HTML page - the API is exact and machine-readable, no summarization risk

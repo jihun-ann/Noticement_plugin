@@ -1,6 +1,6 @@
 ---
 name: publish-digest
-description: Collect AI/Java/Security/IT updates (same sources as collect-updates, including NVIDIA and Hacker News), write a summarized digest page to Notion via the Notion MCP, keep a standing Java/JDK EOL reference page up to date, and email the digest via the user's connected mail account (Outlook/Gmail/etc). Use when the user wants the update digest actually saved and sent, not just shown in chat.
+description: Collect AI/Java/Python/Security/IT updates (same sources as collect-updates, including NVIDIA, company-news blogs, and Hacker News), write a summarized digest page to Notion via the Notion MCP, keep a standing Java/JDK EOL reference page up to date, and email the digest via the user's connected mail account (Outlook/Gmail/etc). Use when the user wants the update digest actually saved and sent, not just shown in chat.
 ---
 
 # Publish Digest
@@ -36,13 +36,19 @@ page and an email. Both side effects are done by calling MCP tools directly
    blocked — don't abort the whole run over one vendor.
 3. Compose the digest content once, from the fetched summaries:
    - A short markdown/blocks body for the Notion page, with sections:
-     vendor release notes (OpenAI/Anthropic/Google/Meta/NVIDIA/Spring), an
-     "AI model rankings" section from `lmarena-leaderboard`, a Java section,
-     a security section (GitHub Advisories + `nvidia-cve-index` +
+     vendor release + company news (OpenAI/Anthropic/Google incl.
+     `google-news`/Meta incl. `meta-news`/NVIDIA), an "AI model rankings"
+     section from `lmarena-leaderboard`, a Java section, a Python section, a
+     security section (GitHub Advisories + `nvidia-cve-index` +
      `oracle-java-cpu` if it wasn't blocked), and an "IT 트렌드" section from
      `hn-frontpage` for broader industry signal beyond the named vendors.
-   - The Java section is not just Oracle's table — combine all three
-     `*-eol` sources (`oracle-jdk-eol`, `eclipse-temurin-eol`,
+   - The Java section covers more than release announcements: pull actual
+     feature/change detail from `spring-boot-releases` (real changelog
+     bullets, not just "version X released") and `openjdk-jeps` (which
+     language/JVM features are landing in upcoming Java versions), not just
+     the thin blurbs from `spring-release`'s blog index.
+   - The Java section's EOL data is not just Oracle's table — combine all
+     three `*-eol` sources (`oracle-jdk-eol`, `eclipse-temurin-eol`,
      `amazon-corretto-eol`) into one comparison, since the same version
      number has a different EOL date on each distribution. Explain *why*
      briefly (Oracle Premier/Extended commercial support vs. Temurin/
@@ -51,6 +57,10 @@ page and an email. Both side effects are done by calling MCP tools directly
      within 6 months or already past, and what free distribution someone on
      that version could move to instead of paying for Oracle Extended
      Support.
+   - The Python section: recent release/feature news from
+     `python-release-blog`, plus EOL status from `python-eol` (same
+     "major/minor line not-EOL ≠ your patch is current" caveat as Java -
+     report the `latest` patch build, not just the `eol` date).
    - For the standing reference page (step 5), go further than the digest
      summary: one full table per distribution listing *every* major version
      ("cycle") each source returns (not just LTS lines), and for each one

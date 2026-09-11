@@ -21,13 +21,13 @@ paths:
           required: false
           schema:
             type: string
-          description: Filter by vendor id, e.g. OPENAI, ANTHROPIC, GOOGLE, META, NVIDIA, SPRING, GITHUB, HACKERNEWS
+          description: Filter by vendor id, e.g. OPENAI, ANTHROPIC, GOOGLE, META, NVIDIA, SPRING, OPENJDK, PYTHON, GITHUB, HACKERNEWS
         - name: category
           in: query
           required: false
           schema:
             type: string
-            enum: [AI, JAVA, SECURITY, IT]
+            enum: [AI, JAVA, PYTHON, SECURITY, IT]
       responses:
         "200":
           description: List of freshly collected documents, newest crawl only (nothing is persisted server-side)

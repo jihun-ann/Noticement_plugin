@@ -8,7 +8,21 @@
   },
   {"id": "anthropic-release", "vendor": "ANTHROPIC", "category": "AI", "url": "https://www.anthropic.com/news"},
   {"id": "google-ai-release", "vendor": "GOOGLE", "category": "AI", "url": "https://blog.google/technology/ai/"},
+  {
+    "id": "google-news",
+    "vendor": "GOOGLE",
+    "category": "AI",
+    "url": "https://blog.google/rss/",
+    "prompt": "List each item in this RSS feed with its title, pubDate, and a one-sentence summary. This is Google's general official blog (not AI-specific) - it's here for company news (investments, policy, product launches across all of Google) that the AI-only blog misses. Limit to the most recent 15 items."
+  },
   {"id": "meta-ai-release", "vendor": "META", "category": "AI", "url": "https://ai.meta.com/blog/"},
+  {
+    "id": "meta-news",
+    "vendor": "META",
+    "category": "AI",
+    "url": "https://about.fb.com/news/feed/",
+    "prompt": "List each item in this RSS feed with its title, pubDate, and a one-sentence summary. This is Meta's official newsroom (not AI-specific) - it's here for general company news that the AI-only blog misses. Limit to the most recent 15 items."
+  },
   {"id": "nvidia-blog", "vendor": "NVIDIA", "category": "AI", "url": "https://blogs.nvidia.com/feed/"},
   {
     "id": "nvidia-developer-blog",
@@ -25,6 +39,34 @@
     "prompt": "This is JSON row data from the LMArena (Chatbot Arena) text leaderboard's official Hugging Face dataset (lmarena-ai/leaderboard-dataset, config 'text', split 'latest'), already filtered to the 'overall' category and sorted by rank ascending. List each row's rank, model_name, organization and rating (round rating to the nearest integer)."
   },
   {"id": "spring-release", "vendor": "SPRING", "category": "JAVA", "url": "https://spring.io/blog"},
+  {
+    "id": "spring-boot-releases",
+    "vendor": "SPRING",
+    "category": "JAVA",
+    "url": "https://github.com/spring-projects/spring-boot/releases",
+    "prompt": "List the 5 most recent releases with their version tag, date, and the actual feature/change bullet points from each changelog - not just 'version X released'. This is for people who want to know what changed, not just that something shipped."
+  },
+  {
+    "id": "openjdk-jeps",
+    "vendor": "OPENJDK",
+    "category": "JAVA",
+    "url": "https://openjdk.org/jeps/0",
+    "prompt": "This is the master JEP (JDK Enhancement Proposal) index - the actual language/JVM/API features being added to Java, independent of any one vendor's build. List the JEPs targeted to or delivered in the most recent 2-3 JDK feature releases, with JEP number, title, and status (Targeted/Delivered/Candidate/Preview)."
+  },
+  {
+    "id": "python-release-blog",
+    "vendor": "PYTHON",
+    "category": "PYTHON",
+    "url": "https://blog.python.org/feeds/posts/default?alt=rss",
+    "prompt": "List each item in this RSS feed with its title, pubDate, and a one-sentence summary. Limit to the most recent 15 items, and prioritize feature/language-change announcements (new version releases, PEPs, JIT/performance work) over routine patch-release notices if there isn't room for both."
+  },
+  {
+    "id": "python-eol",
+    "vendor": "PYTHON",
+    "category": "PYTHON",
+    "url": "https://endoflife.date/api/python.json",
+    "prompt": "This is the raw endoflife.date API for CPython: one object per minor version ('cycle', e.g. '3.12'), with releaseDate, eol, latest (current patch, e.g. '3.12.14' - NOT the same as the cycle), and latestReleaseDate. For every cycle, report: cycle, releaseDate, eol, latest, latestReleaseDate, and whether eol has already passed as of today. Do not collapse rows - list every cycle in the JSON."
+  },
   {
     "id": "oracle-jdk-eol",
     "vendor": "ORACLE_JDK",

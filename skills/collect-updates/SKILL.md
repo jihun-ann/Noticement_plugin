@@ -1,6 +1,6 @@
 ---
 name: collect-updates
-description: Check the registered AI/Java/Python/Security/IT sources (OpenAI, Anthropic, Google, Meta, NVIDIA release+company-news blogs, the LMArena leaderboard dataset, Spring/Spring Boot/OpenJDK JEPs, Python release blog/PEPs, Oracle JDK/Eclipse Temurin/Amazon Corretto and CPython end-of-life+patch data, GitHub Security Advisories, NVIDIA CVEs, Oracle CPU advisories, Hacker News) directly via WebFetch and summarize what's new. Use when the user asks for the latest AI/Java/Python/security/IT updates, model rankings, or language EOL/feature status.
+description: Check the registered AI/Java/Python/Security/IT sources (OpenAI, Anthropic, Google, Meta, NVIDIA release+company-news blogs, TechCrunch AI and Techmeme for independent AI-industry journalism, the LMArena leaderboard dataset, Spring/Spring Boot/OpenJDK JEPs, Python release blog/PEPs, Oracle JDK/Eclipse Temurin/Amazon Corretto and CPython end-of-life+patch data, GitHub Security Advisories, NVIDIA CVEs, Oracle CPU advisories, Hacker News) directly via WebFetch and summarize what's new. Use when the user asks for the latest AI/Java/Python/security/IT updates, model rankings, industry controversies, or language EOL/feature status.
 ---
 
 # Collect Updates
@@ -28,6 +28,19 @@ and `*-news` (their general official blog/newsroom) - use both, since
 company news (funding, policy, leadership, non-AI product launches) often
 doesn't show up on the AI-only blog. Anthropic and OpenAI don't need a
 second entry - their one feed already mixes product and company news.
+
+**None of the above catch a company's own controversies** - a vendor's
+blog only ever self-reports good news, and this whole list used to be
+vendor blogs plus Hacker News (vote-based, misses things that don't go
+viral that specific day). `techcrunch-ai` and `techmeme` fix that:
+independent journalism and an editor-curated cross-outlet aggregator,
+respectively. (Verified once against a real story they'd otherwise have
+missed entirely: a WSJ report on Chinese AI labs routing queries through
+"transfer stations" to distill Claude/other US models, exposing user data
+to those models' operators - showed up on Techmeme, on none of the vendor
+feeds.) Always check these alongside the vendor blogs, not as an
+afterthought - this is where "what's the industry actually talking about"
+lives, distinct from "what a vendor wants to announce."
 
 A few sources aren't announcement-shaped and carry their own `prompt` in
 `sources.json` because "list announcements" doesn't make sense for them:
@@ -82,8 +95,8 @@ A few sources aren't announcement-shaped and carry their own `prompt` in
   `sources.json` each January or it 404s.
 - `hn-frontpage` — Hacker News's front page (via `hnrss.org`), a general
   tech-industry pulse rather than an AI/Java/Security-specific source.
-  Covers the broader "IT news/trends" ask that the vendor-specific sources
-  don't.
+- `techmeme` — see the note above; a general cross-outlet tech aggregator,
+  editor-curated rather than vote-based like `hn-frontpage`.
 
 ## Steps
 

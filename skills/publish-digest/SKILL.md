@@ -1,6 +1,6 @@
 ---
 name: publish-digest
-description: Collect AI/Java/Python/Security/IT updates (same sources as collect-updates, including NVIDIA, company-news blogs, JEPs/PEPs, and Hacker News), write a summarized digest page to Notion via the Notion MCP, keep a standing Java/JDK EOL reference page up to date, and email the digest via the user's connected mail account (Outlook/Gmail/etc). Use when the user wants the update digest actually saved and sent, not just shown in chat.
+description: Collect AI/Java/Python/Security/IT updates (same sources as collect-updates, including NVIDIA, company-news blogs, TechCrunch/Techmeme for independent AI-industry journalism, JEPs/PEPs, and Hacker News), write a summarized digest page to Notion via the Notion MCP, keep a standing Java/JDK EOL reference page up to date, and email the digest via the user's connected mail account (Outlook/Gmail/etc). Use when the user wants the update digest actually saved and sent, not just shown in chat.
 ---
 
 # Publish Digest
@@ -37,11 +37,17 @@ page and an email. Both side effects are done by calling MCP tools directly
 3. Compose the digest content once, from the fetched summaries:
    - A short markdown/blocks body for the Notion page, with sections: an
      AI release/company-news section (OpenAI/Anthropic/Google incl.
-     `google-news`/Meta incl. `meta-news`/NVIDIA), an "AI model rankings"
-     section from `lmarena-leaderboard`, a Java section, a Python section, a
-     security section (GitHub Advisories + `nvidia-cve-index` +
-     `oracle-java-cpu` if it wasn't blocked), and an "IT 트렌드" section from
-     `hn-frontpage` for broader industry signal beyond the named vendors.
+     `google-news`/Meta incl. `meta-news`/NVIDIA), an "AI 업계 뉴스" section
+     from `techcrunch-ai` — independent journalism, the only place a
+     controversy or dispute involving an AI company (not its own good-news
+     announcements) shows up, so don't skip this section even when nothing
+     dramatic turns up on a given run — an "AI model rankings" section from
+     `lmarena-leaderboard`, a Java section, a Python section, a security
+     section (GitHub Advisories + `nvidia-cve-index` + `oracle-java-cpu` if
+     it wasn't blocked), and an "IT 트렌드" section from `hn-frontpage` +
+     `techmeme` (editor-curated cross-outlet aggregator, catches things
+     HN's vote-based front page misses) for broader industry signal beyond
+     the named vendors.
    - The AI release/company-news section is grouped **by vendor** (one
      `### Vendor` heading each), and **within each vendor's list, items are
      sorted newest-first with the date shown on every item** — never a bare

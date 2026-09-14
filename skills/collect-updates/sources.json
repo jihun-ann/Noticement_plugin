@@ -32,6 +32,13 @@
     "prompt": "List each item in this RSS feed with its title, pubDate, and a one-sentence summary - this is NVIDIA's developer blog, so favor items about APIs/SDKs (CUDA, TensorRT, NIM, cuDNN, etc.) if there are more than 20 items."
   },
   {
+    "id": "techcrunch-ai",
+    "vendor": "TECHCRUNCH",
+    "category": "AI",
+    "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+    "prompt": "List each item in this RSS feed with its title, pubDate, and a one-sentence summary. Limit to the most recent 15 items. This is independent journalism about the AI industry (not a vendor's own announcements) - it's the place controversies, business/legal disputes, and investigative stories about AI companies actually show up, since a company's own blog never reports on itself critically."
+  },
+  {
     "id": "lmarena-leaderboard",
     "vendor": "LMARENA",
     "category": "AI",
@@ -116,5 +123,12 @@
     "category": "IT",
     "url": "https://hnrss.org/frontpage",
     "prompt": "List the top 15 items in this RSS feed (title and link). This is the Hacker News front page - a general tech-industry pulse, not curated for any one topic. If there are more than 15, prioritize AI, Java/JVM, and security/infrastructure stories."
+  },
+  {
+    "id": "techmeme",
+    "vendor": "TECHMEME",
+    "category": "IT",
+    "url": "https://www.techmeme.com/feed.xml",
+    "prompt": "List each item in this RSS feed with its title, pubDate, and a one-sentence summary. Limit to the most recent 15 items. This is an editor-curated aggregator of the day's most significant tech stories across many outlets (not vote-based like Hacker News) - it reliably surfaces major AI-industry business/policy/controversy stories (e.g. an AI lab's data-handling practices, regulatory disputes) that vendor blogs and HN's vote-based front page can both miss."
   }
 ]
